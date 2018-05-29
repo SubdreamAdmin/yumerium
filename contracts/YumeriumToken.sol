@@ -1,5 +1,8 @@
 pragma solidity ^0.4.23;
 
+/*
+ * Author: Yumerium Ltd
+*/
 contract owned {
     address public owner;
 
