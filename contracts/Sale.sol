@@ -59,7 +59,7 @@ contract Sale {
     uint public saleEnd1 = 1528588800; //06/10/2018 @ 12:00am (UTC)
     uint public saleEnd2 = 1529971200; //06/26/2018 @ 12:00am (UTC)
     uint public saleEnd3 = 1531267200; //07/11/2018 @ 12:00am (UTC)
-    uint public mainSaleStart = 1537920000 // 09/26/2018 @ 12:00am (UTC)
+    uint public mainSaleStart = 1537920000; // 09/26/2018 @ 12:00am (UTC)
     uint public saleEnd4 = 1539129600; //10/10/2018 @ 12:00am (UTC)
 
     uint256 public saleExchangeRate1 = 17500;
@@ -111,7 +111,7 @@ contract Sale {
     
     function buy() internal {
         require(msg.value>=minEthValue);
-        require(now < saleEnd3 || (mainSaleStart <= now && now < saleEnd4); // main sale postponed
+        require(now < saleEnd3 || (mainSaleStart <= now && now < saleEnd4)); // main sale postponed
         
         uint256 amount;
         uint256 exchangeRate;
