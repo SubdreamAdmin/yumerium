@@ -111,7 +111,7 @@ contract Sale {
     
     function buy() internal {
         require(msg.value>=minEthValue);
-        require(now < saleEnd3 || (now >= mainSaleStart && now < saleEnd4); // main sale postponed
+        require(now < saleEnd3 || (mainSaleStart <= now && now < saleEnd4); // main sale postponed
         
         uint256 amount;
         uint256 exchangeRate;
