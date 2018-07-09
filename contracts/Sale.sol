@@ -10,58 +10,57 @@ pragma solidity ^0.4.23;
  */
 library SafeMath {
 
-  /**
-  * @dev Multiplies two numbers, throws on overflow.
-  */
-  function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    if (a == 0) {
-      return 0;
+    /**
+    * @dev Multiplies two numbers, throws on overflow.
+    */
+    function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        if (a == 0) {
+            return 0;
+        }
+        c = a * b;
+        assert(c / a == b);
+        return c;
     }
-    c = a * b;
-    assert(c / a == b);
-    return c;
-  }
 
-  /**
-  * @dev Integer division of two numbers, truncating the quotient.
-  */
-  function div(uint256 a, uint256 b) internal pure returns (uint256) {
-    // assert(b > 0); // Solidity automatically throws when dividing by 0
-    // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-    return a / b;
-  }
+    /**
+    * @dev Integer division of two numbers, truncating the quotient.
+    */
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        // assert(b > 0); // Solidity automatically throws when dividing by 0
+        // uint256 c = a / b;
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+        return a / b;
+    }
 
-  /**
-  * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
-  */
-  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-    assert(b <= a);
-    return a - b;
-  }
+    /**
+    * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
+    */
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        assert(b <= a);
+        return a - b;
+    }
 
-  /**
-  * @dev Adds two numbers, throws on overflow.
-  */
-  function add(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    c = a + b;
-    assert(c >= a);
-    return c;
-  }
+    /**
+    * @dev Adds two numbers, throws on overflow.
+    */
+    function add(uint256 a, uint256 b) internal pure returns (uint256 c) {
+        c = a + b;
+        assert(c >= a);
+        return c;
+    }
 }
-
 
 contract ERC20 {
-  function sale(address to, uint256 value);
+    function sale(address to, uint256 value) public;
 }
-
 
 contract Sale {
     uint public preSaleEnd = 1527120000; //05/24/2018 @ 12:00am (UTC)
     uint public saleEnd1 = 1528588800; //06/10/2018 @ 12:00am (UTC)
     uint public saleEnd2 = 1529971200; //06/26/2018 @ 12:00am (UTC)
     uint public saleEnd3 = 1531267200; //07/11/2018 @ 12:00am (UTC)
-    uint public saleEnd4 = 1532476800; //07/25/2018 @ 12:00am (UTC)
+    uint public mainSaleStart = 1537833600 // 09/25/2018 @ 12:00am (UTC)
+    uint public saleEnd4 = 1539043200; //10/09/2018 @ 12:00am (UTC)
 
     uint256 public saleExchangeRate1 = 17500;
     uint256 public saleExchangeRate2 = 10000;
@@ -92,16 +91,14 @@ contract Sale {
 
     event Contribution(address from, uint256 amount);
 
-    function Sale(address _wallet, address _token_address) {
+    constructor(address _wallet, address _token_address) public {
         maxSale = 316906850 * 10 ** 8; 
         ETHWallet = _wallet;
         creator = msg.sender;
         Token = ERC20(_token_address);
     }
 
-    
-
-    function () payable {
+    function () external payable {
         buy();
     }
 
@@ -114,7 +111,7 @@ contract Sale {
     
     function buy() internal {
         require(msg.value>=minEthValue);
-        require(now < saleEnd4);
+        require(now < saleEnd3 || (now >= mainSaleStart && now < saleEnd4); // main sale postponed
         
         uint256 amount;
         uint256 exchangeRate;
@@ -156,7 +153,7 @@ contract Sale {
         
         ETHWallet.transfer(msg.value);
         Token.sale(msg.sender, amount);
-        Contribution(msg.sender, amount);
+        emit Contribution(msg.sender, amount);
     }
 
     // change creator address
