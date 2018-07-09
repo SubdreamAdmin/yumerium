@@ -59,8 +59,8 @@ contract Sale {
     uint public saleEnd1 = 1528588800; //06/10/2018 @ 12:00am (UTC)
     uint public saleEnd2 = 1529971200; //06/26/2018 @ 12:00am (UTC)
     uint public saleEnd3 = 1531267200; //07/11/2018 @ 12:00am (UTC)
-    uint public mainSaleStart = 1537833600 // 09/25/2018 @ 12:00am (UTC)
-    uint public saleEnd4 = 1539043200; //10/09/2018 @ 12:00am (UTC)
+    uint public mainSaleStart = 1537920000 // 09/26/2018 @ 12:00am (UTC)
+    uint public saleEnd4 = 1539129600; //10/10/2018 @ 12:00am (UTC)
 
     uint256 public saleExchangeRate1 = 17500;
     uint256 public saleExchangeRate2 = 10000;
